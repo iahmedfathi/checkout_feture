@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class PositionedCircle extends StatelessWidget {
   const PositionedCircle({
-    super.key,  this.rightRadiosPosition,  this.leftRadiosPosition,
+    super.key,
+    this.rightRadiosPosition,
+    this.leftRadiosPosition,
   });
   final double? rightRadiosPosition;
   final double? leftRadiosPosition;

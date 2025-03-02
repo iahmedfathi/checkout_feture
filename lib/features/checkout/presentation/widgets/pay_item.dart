@@ -19,10 +19,16 @@ class PayItem extends StatelessWidget {
           height: 58,
           decoration: ShapeDecoration(
             shape: RoundedRectangleBorder(
-              side: BorderSide(color: Colors.green, width: 1.5),borderRadius: BorderRadius.circular(15)
-            ),
+                side: BorderSide(color: Colors.green, width: 1.5),
+                borderRadius: BorderRadius.circular(15)),
           ),
-          child: Center(child: TextButton(onPressed: (){}, child: Text('PAID',style: AppStyles.semiBold24,))),
+          child: Center(
+              child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'PAID',
+                    style: AppStyles.semiBold24,
+                  ))),
         )
       ],
     );

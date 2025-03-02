@@ -41,14 +41,17 @@ class ThankViewBody extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 30, horizontal: 20),
                     child: MasterCardItem(),
-                    
                   ),
                   Spacer(),
-                  
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: PayItem(),
-                  ),SizedBox(height:(( MediaQuery.sizeOf(context).height*.2+20)/2)-29,),
+                  ),
+                  SizedBox(
+                    height:
+                        ((MediaQuery.sizeOf(context).height * .2 + 20) / 2) -
+                            29,
+                  ),
                 ],
               ),
             ),
@@ -87,7 +90,6 @@ class ThankViewBody extends StatelessWidget {
               right: 0,
               bottom: MediaQuery.sizeOf(context).height * .2 + 20,
               child: IntermittentDistances()),
-
         ],
       ),
     );

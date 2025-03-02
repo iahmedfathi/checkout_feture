@@ -9,12 +9,11 @@ class PayItemListView extends StatefulWidget {
 }
 
 class _PayItemListViewState extends State<PayItemListView> {
-   
-
   final List<String> payItems = const [
     'assets/images/credit.svg',
     "assets/images/paypal.svg"
-  ];int currentIndex = 1;
+  ];
+  int currentIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +27,7 @@ class _PayItemListViewState extends State<PayItemListView> {
                 child: GestureDetector(
                   onTap: () {
                     currentIndex = index;
-                    setState(() {
-                      
-                    });
+                    setState(() {});
                   },
                   child: PaymentItem(
                     isActive: currentIndex == index,

@@ -1,8 +1,15 @@
-import 'package:checkout_feature/features/checkout/presentation/views/payment_details_view.dart';
+import 'package:checkout_feature/core/api/dio_consumer.dart';
+import 'package:checkout_feature/core/utils/stripe_service.dart';
+import 'package:checkout_feature/features/checkout/data/repos/checkout_repo_impl.dart';
+import 'package:checkout_feature/features/checkout/presentation/controllers/payment_cubit/payment_cubit.dart';
 import 'package:checkout_feature/features/checkout/presentation/widgets/custom_button.dart';
+
 import 'package:checkout_feature/features/checkout/presentation/widgets/order_price.dart';
+import 'package:checkout_feature/features/checkout/presentation/widgets/payment_methods_bottom_sheet.dart';
 import 'package:checkout_feature/features/checkout/presentation/widgets/total_price.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyCartBody extends StatelessWidget {
   const MyCartBody({super.key});
@@ -39,13 +46,25 @@ class MyCartBody extends StatelessWidget {
           CustomButton(
             text: 'Complete Payment',
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => PaymentDetailsView()));
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => BlocProvider(
+                  create: (context) => PaymentCubit(
+                    CheckoutRepoImpl(
+                      stripeService: StripeService(
+                        apiConsumer: DioConsumer(dio: Dio()),
+                      ),
+                    ),
+                  ),
+                  child: PaymentMethodsBottomSheet(),
+                ),
+              );
             },
           ),
           SizedBox(
             height: 25,
-          ),SizedBox()
+          ),
+          SizedBox()
         ],
       ),
     );

@@ -22,8 +22,7 @@ class _CustomCreditCardState extends State<CustomCreditCard> {
     return Column(
       children: [
         CreditCardWidget(
-          isHolderNameVisible: true,
-          
+            isHolderNameVisible: true,
             cardNumber: cardNumber,
             expiryDate: expiryDate,
             cardHolderName: cardHolderName,
@@ -42,9 +41,7 @@ class _CustomCreditCardState extends State<CustomCreditCard> {
               expiryDate = creditCardBrand.expiryDate;
               cvvCode = creditCardBrand.cvvCode;
               showBackView = creditCardBrand.isCvvFocused;
-              setState(() {
-                
-              });
+              setState(() {});
             },
             formKey: widget.formKey),
       ],

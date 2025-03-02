@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class PaymentItem extends StatelessWidget {
-  const PaymentItem({super.key, required this.image,this.isActive=false});
+  const PaymentItem({super.key, required this.image, this.isActive = false});
   final String image;
   final bool isActive;
 
@@ -16,9 +16,8 @@ class PaymentItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-              blurRadius: 1.5,
-              color:isActive? Color(0xff34A853):Color(0xffD9D9D9)
-            )
+                blurRadius: 1.5,
+                color: isActive ? Color(0xff34A853) : Color(0xffD9D9D9))
           ]),
       child: Center(
           child: SvgPicture.asset(
