@@ -6,8 +6,8 @@ class EndPoint {
 
 class ApiKey {
   static String clientId =
-      "Ab53VIHZ3vJN-x_R6TME3bJFRbv8gCMJwOk8SXRZwcejhpaGSGMkUI-_U8EIH5DeW5dy6o-5n_4OjyMG";
-      static String payPalSecretKey = "EHBEmYPJ9wbgV6iwrKpGCSuICjXtxZFsPYxMham1KE6MWVAvs-R6M-A2J2_7xdssO30qvuIzBJ002auF";
+      "AQBIyHndd33k1NxY8UtVOcXZMGV81WfGKh_wxcLnE9a9LQ81r8Oe95rasYXXPtIohlYuFKl_BboA_IRz";
+      static String payPalSecretKey = "EDk771BP5XBIltSZjJT00VkccMiGJZboPG5XSA9Dz7noluONMY_P9Gl1kFXp5wKwL1ifCmPv3-2g8wBb";
   static String type = "type";
   static String error = "error";
 

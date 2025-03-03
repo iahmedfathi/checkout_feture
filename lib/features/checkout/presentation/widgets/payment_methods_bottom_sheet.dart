@@ -2,8 +2,15 @@ import 'package:checkout_feature/features/checkout/presentation/widgets/custom_b
 import 'package:checkout_feature/features/checkout/presentation/widgets/pay_item_list_view.dart';
 import 'package:flutter/material.dart';
 
-class PaymentMethodsBottomSheet extends StatelessWidget {
+class PaymentMethodsBottomSheet extends StatefulWidget {
   const PaymentMethodsBottomSheet({super.key});
+
+  @override
+  State<PaymentMethodsBottomSheet> createState() => _PaymentMethodsBottomSheetState();
+}
+
+class _PaymentMethodsBottomSheetState extends State<PaymentMethodsBottomSheet> {
+  int selectedIndex = 0; // Default to credit card
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +26,20 @@ class PaymentMethodsBottomSheet extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          spacing: 32,
-          children: [PayItemListView(), CustomButtonBlocConsumer()],
+          children: [
+            // Pass the selectedIndex and update function
+            PayItemListView(
+              selectedIndex: selectedIndex,
+              onSelected: (index) {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+            ),
+            SizedBox(height: 20),
+            // Pass selectedIndex to button consumer
+            CustomButtonBlocConsumer(selectedIndex: selectedIndex),
+          ],
         ),
       ),
     );
