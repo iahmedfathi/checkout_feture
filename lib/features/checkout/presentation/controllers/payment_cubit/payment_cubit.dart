@@ -8,22 +8,30 @@ part 'payment_state.dart';
 
 class PaymentCubit extends Cubit<PaymentState> {
   PaymentCubit(this.checkoutRepo) : super(PaymentInitial());
+
   static PaymentCubit get(context) => BlocProvider.of<PaymentCubit>(context);
+
   final CheckoutRepo checkoutRepo;
-  Future makePayment(
-      {required PaymentIntentInputModel paymentInputModel}) async {
+
+  Future<void> makePayment({required PaymentIntentInputModel paymentInputModel}) async {
     emit(PaymentLoading());
-    final result =
-        await checkoutRepo.makePayMent(paymentInputModel: paymentInputModel);
+
+    final result = await checkoutRepo.makePayMent(paymentInputModel: paymentInputModel);
+
     result.fold(
-      (error) => emit(PaymentFailure(errorMessage: error)),
+      (error) {
+        if (error.contains("canceled")) {
+          emit(PaymentFailure(errorMessage: "User canceled the payment."));
+        } else {
+          emit(PaymentFailure(errorMessage: error));
+        }
+      },
       (_) => emit(PaymentSuccess()),
     );
-  }
-
-  @override
+  } @override
   void onChange(Change<PaymentState> change) {
     log(change.toString());
     super.onChange(change);
   }
 }
+

@@ -16,7 +16,9 @@ class CheckoutRepoImpl extends CheckoutRepo {
           paymentInputModel: paymentInputModel);
       return Right(null);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage);
+      return Left(e.errModel.errorMessage); // ✅ Return correct error message
+    } catch (e) {
+      return Left("An unexpected error occurred: $e"); // ✅ Catch all other exceptions
     }
   }
 }

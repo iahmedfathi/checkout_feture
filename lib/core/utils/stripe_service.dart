@@ -1,7 +1,8 @@
 import 'package:checkout_feature/core/api/api_consumer.dart';
 
 import 'package:checkout_feature/core/api/end_pointes.dart';
-import 'package:checkout_feature/features/checkout/data/models/customers_model.dart';
+import 'package:checkout_feature/core/errors/error_model.dart';
+import 'package:checkout_feature/core/errors/exceptions.dart';
 import 'package:checkout_feature/features/checkout/data/models/payment_intent_input.dart';
 import 'package:checkout_feature/features/checkout/data/models/payment_intent_model/payment_intent_model.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -33,19 +34,29 @@ class StripeService {
     await Stripe.instance.presentPaymentSheet();
   }
 
-  Future<void> makePaymentSheet(
-      {required PaymentIntentInputModel paymentInputModel}) async {
+Future<void> makePaymentSheet({required PaymentIntentInputModel paymentInputModel}) async {
+  try {
     var paymentIntentInputModel = await createPaymentIntent(paymentInputModel);
     await initPaymentSheet(
         paymentIntentClientSecret: paymentIntentInputModel.clientSecret!);
     await diPlayPaymentSheet();
+  } on StripeException catch (e) {
+    if (e.error.code == FailureCode.Canceled) {
+      throw ServerException(errModel: ErrorModel(errorMessage: "Payment was canceled by the user."));
+    } else {
+      throw ServerException(errModel: ErrorModel(errorMessage: e.error.localizedMessage ?? "Payment failed."));
+    }
+  } catch (e) {
+    throw ServerException(errModel: ErrorModel(errorMessage: "An unexpected error occurred: $e"));
   }
+}
 
-  Future<PaymentIntentModel> createCustomers(
-      CustomersModel customersModel) async {
-    final response = await apiConsumer.post(EndPoint.customers,
-        data: customersModel.toJson());
-    final paymentIntentModel = PaymentIntentModel.fromJson(response);
-    return paymentIntentModel;
-  }
+
+  // Future<PaymentIntentModel> createCustomers(
+  //     CustomersModel customersModel) async {
+  //   final response = await apiConsumer.post(EndPoint.customers,
+  //       data: customersModel.toJson());
+  //   final paymentIntentModel = PaymentIntentModel.fromJson(response);
+  //   return paymentIntentModel;
+  // }
 }
